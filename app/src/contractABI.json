@@ -1,0 +1,147 @@
+[
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "bytes3[][1080]",
+				"name": "canvasData",
+				"type": "bytes3[][1080]"
+			}
+		],
+		"name": "FullCanvasRetrieved",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "x",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "y",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "bytes3",
+				"name": "color",
+				"type": "bytes3"
+			}
+		],
+		"name": "PixelChanged",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "x",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "y",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bytes3",
+				"name": "color",
+				"type": "bytes3"
+			}
+		],
+		"name": "placePixel",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "canvasHeight",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "canvasWidth",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "startX",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "startY",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "width",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "height",
+				"type": "uint256"
+			}
+		],
+		"name": "getCanvasRegion",
+		"outputs": [
+			{
+				"internalType": "bytes3[][]",
+				"name": "",
+				"type": "bytes3[][]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "x",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "y",
+				"type": "uint256"
+			}
+		],
+		"name": "getPixelColor",
+		"outputs": [
+			{
+				"internalType": "bytes3",
+				"name": "",
+				"type": "bytes3"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]

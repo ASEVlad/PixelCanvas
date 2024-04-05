@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canvas Scrolling and Zooming</title>
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  canvas {
+    display: block;
+    background-color: #f0f0f0;
+    cursor: move;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="myCanvas" width="800" height="600"></canvas>
+
+<script>
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let isDragging = false;
+    let lastX = 0;
+    let lastY = 0;
+
+    let scale = 1;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    const pixelSize = 5; // Size of each pixel
+    const rectWidth = pixelSize * 1000;
+    const rectHeight = pixelSize * 1000;
+
+    function drawBorders() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Calculate the position to draw the rectangle in the middle of the canvas
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const rectX = centerX - (rectWidth / 2);
+        const rectY = centerY - (rectHeight / 2);
+
+        // Save the current transformation matrix
+        ctx.save();
+
+        // Apply translation and scaling
+        ctx.translate(offsetX, offsetY);
+        ctx.scale(scale, scale);
+
+        // Draw the empty rectangle
+        ctx.strokeStyle = '#0095DD';
+        ctx.lineWidth = 5; // Adjust line width as needed
+        ctx.strokeRect(rectX, rectY, rectWidth, rectHeight);
+
+        // Restore the transformation matrix to its original state
+        ctx.restore();
+    }
+
+
+    function handleMouseDown(e) {
+        isDragging = true;
+        lastX = e.clientX;
+        lastY = e.clientY;
+    }
+
+    function handleMouseUp() {
+        isDragging = false;
+    }
+
+    function handleMouseMove(e) {
+        if (!isDragging) return;
+        const deltaX = e.clientX - lastX;
+        const deltaY = e.clientY - lastY;
+        lastX = e.clientX;
+        lastY = e.clientY;
+        offsetX += deltaX;
+        offsetY += deltaY;
+        draw();
+    }
+
+    function handleWheel(e) {
+        const delta = e.deltaY;
+        const scaleFactor = delta > 0 ? 0.9 : 1.1; // Decrease scale for zooming out, increase for zooming in
+
+        // Calculate the position of the cursor relative to the canvas
+        const rect = canvas.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
+        // Adjust the offset to zoom towards the cursor
+        offsetX = mouseX - (mouseX - offsetX) * scaleFactor;
+        offsetY = mouseY - (mouseY - offsetY) * scaleFactor;
+
+        // Update the scale
+        scale *= scaleFactor;
+
+        draw();
+    }
+
+    canvas.addEventListener('mousedown', handleMouseDown);
+    canvas.addEventListener('mouseup', handleMouseUp);
+    canvas.addEventListener('mousemove', handleMouseMove);
+    canvas.addEventListener('wheel', handleWheel);
+
+  draw();
+</script>
+
+</body>
+</html>
